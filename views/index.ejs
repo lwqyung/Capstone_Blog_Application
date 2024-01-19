@@ -1,0 +1,30 @@
+<%- include("partials/header.ejs") %>
+
+<% if (locals.blogEntries) { %>
+    <% blogEntries.forEach( ( value, key, map ) => { %>
+        <form action="/edit" method="get" id="edit-entry">        
+            <div id="<%= value.getCreatedOnISO() %>">
+                <div class="container col-xxl-8 px-4 border-top">
+                    <div class="row flex-lg-row align-items-center g-5 py-5">
+                        <div class="col-lg-12">
+                            <h2 class="entry-title-txt"><%= value.getTitle() %></h2>
+                            <div class="entry-date-div">
+                            <h3 class="created-on-txt"><%= value.getCreatedOn() %></h3>
+                            <% if ( value.getLastModified() ) { %>
+                                <em class="last-update-txt">Last updated <%= value.getLastModified() %></em>
+                            <% } %>
+                            </div>
+                            <p><%= value.entry %></p>
+                        </div>
+                        <div class="col-lg-12 mt-3">
+                            <input type="hidden" value="<%= value.getCreatedOnISO() %>" id="entryCreationDate" name="entryCreationDate" />
+                            <input type="submit" class="btn btn-primary rounded-pill px-3" type="button" id="edit" value="Edit current entry" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    <% } ); %>
+<% } %>
+
+<%- include("partials/footer.ejs") %>
